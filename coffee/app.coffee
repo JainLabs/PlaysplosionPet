@@ -4,16 +4,25 @@ class Sidebar
 		@addItems()
 			# $(this).animate 'margin-left': '100%', 1000
 		@el.hammer().on 'swiperight doubletap', '.foods li', ->
-			pig?.say "Yummy! Thank you!"
+			pig.setImage "/images/eating.gif", 3000
+			pig.say "Yummy! Thank you!"
 			$(this).fadeOut('slow').delay(7000).fadeIn()
-
-
-
-		
+			pig.addSound "My tummy hurts! Could you rub it?"
+			$('.main').hammer().on 'rotate', ->
+				pig.say "That feels much better!"
 
 		@el.hammer().on 'swiperight doubletap', '.play li', ->
-			pig?.say "Yummy! Thank you!"
-			$(this).fadeOut('slow').delay(7000).fadeIn()
+			pig.setImage "/images/run.gif", 3000
+			pig.say "This is fun!"
+
+	addItems: ->
+		$section = @el.find '.foods ul'
+		for im in ['carrots.png','greens.png','pear.png','pepper.png']
+			$section.append Sidebar.imageEl('/images/foods', im)
+
+		$section = @el.find '.play ul'
+		for im in ['wheel.jpg']
+			$section.append Sidebar.imageEl('/images', im)
 
 	@imageEl: (path, im) ->	
 		name = im.split('.')[0]
@@ -24,14 +33,6 @@ class Sidebar
 		</li>
 		"""
 
-	@addItems: ->
-		$section = @el.find '.foods ul'
-		for im in ['carrots.png','greens.png','pear.png','pepper.png']
-			$section.append Sidebar.imageEl('/images/foods', im)
-
-		$section = @el.find '.play ul'
-		for im in ['wheel.jpg']
-			$section.append Sidebar.imageEl('/images', im)
 
 class Sounds
 	@text: (str) ->
@@ -47,6 +48,15 @@ class Guinea
 				Sounds.text("Do you want to play?").play()
 			else
 				@tasks.shift()()
+
+
+	setImage: (url, revert) ->
+		last = $('.main').css "background-image"
+		next = "url(#{url})"
+		$('.main').css("background-image", next)
+		setTimeout (=>
+			$('.main').css("background-image", last)
+		), +revert
 
 	setHungerInterval: (msec) ->
 		setInterval (=>
@@ -67,6 +77,7 @@ class Guinea
 
 side = new Sidebar
 pig = new Guinea
+pig.setHungerInterval 15000
 pig.addSound "Hello! I am a guinea pig."
+pig.addSound "I need some exercise. Can we have play time?"
 pig.addSound "Could you feed me, please?"
-pig.addSound "I need some exercise. Play time!"
