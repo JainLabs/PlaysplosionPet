@@ -25,7 +25,7 @@ body {
 }
 
 .side {
-	background-color: #CCC;
+	background-color: #d2e1fd;
 	text-align: center;
 
 	&, .content {
@@ -33,9 +33,10 @@ body {
 		padding-left: 0 !important;
 	}
 	
-	// li .label {
-		// left: 0px;
-	// }
+	li {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
 }
 
 .main {

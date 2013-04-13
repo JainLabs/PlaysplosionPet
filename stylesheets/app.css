@@ -2068,7 +2068,7 @@ body {
 
 /* line 27, ../sass/app.scss */
 .side {
-  background-color: #CCC;
+  background-color: #d2e1fd;
   text-align: center;
 }
 /* line 31, ../sass/app.scss */
@@ -2076,8 +2076,13 @@ body {
   padding-right: 0 !important;
   padding-left: 0 !important;
 }
+/* line 36, ../sass/app.scss */
+.side li {
+  padding-left: 5px;
+  padding-right: 5px;
+}
 
-/* line 41, ../sass/app.scss */
+/* line 42, ../sass/app.scss */
 .main {
   background-image: url('/images/guinea.jpg?1365873137');
   background-repeat: no-repeat;

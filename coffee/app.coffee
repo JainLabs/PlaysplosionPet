@@ -1,26 +1,37 @@
 class Sidebar
 	constructor: () ->
 		@el = $(".side")
-		$section = @el.find '.foods ul'
-		for im in ['carrots.png','greens.png','pear.png','pepper.png']
-			$section.append Sidebar.imageEl('/images/foods', im)
-
-		@el.hammer().on 'touch', '.foods li', ->
+		@addItems()
+			# $(this).animate 'margin-left': '100%', 1000
+		@el.hammer().on 'swiperight doubletap', '.foods li', ->
 			pig?.say "Yummy! Thank you!"
 			$(this).fadeOut('slow').delay(7000).fadeIn()
 
-		$section = @el.find '.play ul'
-		for im in ['wheel.jpg']
-			$section.append Sidebar.imageEl('/images', im)
 
-	@imageEl: (path, im) ->
+
+		
+
+		@el.hammer().on 'swiperight doubletap', '.play li', ->
+			pig?.say "Yummy! Thank you!"
+			$(this).fadeOut('slow').delay(7000).fadeIn()
+
+	@imageEl: (path, im) ->	
 		name = im.split('.')[0]
 		"""
 		<li>
 			<img src='#{path}/#{im}' alt='#{name}' />
-			<span class="label">#{name}</span>
+			<h5 class="subheader">#{name}</h5>
 		</li>
 		"""
+
+	@addItems: ->
+		$section = @el.find '.foods ul'
+		for im in ['carrots.png','greens.png','pear.png','pepper.png']
+			$section.append Sidebar.imageEl('/images/foods', im)
+
+		$section = @el.find '.play ul'
+		for im in ['wheel.jpg']
+			$section.append Sidebar.imageEl('/images', im)
 
 class Sounds
 	@text: (str) ->

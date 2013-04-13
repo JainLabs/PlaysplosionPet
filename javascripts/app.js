@@ -5,32 +5,44 @@
   Sidebar = (function() {
 
     function Sidebar() {
-      var $section, im, _i, _j, _len, _len1, _ref, _ref1;
       this.el = $(".side");
+      this.addItems();
+      this.el.hammer().on('swiperight doubletap', '.foods li', function() {
+        if (typeof pig !== "undefined" && pig !== null) {
+          pig.say("Yummy! Thank you!");
+        }
+        return $(this).fadeOut('slow').delay(7000).fadeIn();
+      });
+      this.el.hammer().on('swiperight doubletap', '.play li', function() {
+        if (typeof pig !== "undefined" && pig !== null) {
+          pig.say("Yummy! Thank you!");
+        }
+        return $(this).fadeOut('slow').delay(7000).fadeIn();
+      });
+    }
+
+    Sidebar.imageEl = function(path, im) {
+      var name;
+      name = im.split('.')[0];
+      return "<li>\n	<img src='" + path + "/" + im + "' alt='" + name + "' />\n	<h5 class=\"subheader\">" + name + "</h5>\n</li>";
+    };
+
+    Sidebar.addItems = function() {
+      var $section, im, _i, _j, _len, _len1, _ref, _ref1, _results;
       $section = this.el.find('.foods ul');
       _ref = ['carrots.png', 'greens.png', 'pear.png', 'pepper.png'];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         im = _ref[_i];
         $section.append(Sidebar.imageEl('/images/foods', im));
       }
-      this.el.hammer().on('touch', '.foods li', function() {
-        if (typeof pig !== "undefined" && pig !== null) {
-          pig.say("Yummy! Thank you!");
-        }
-        return $(this).fadeOut('slow').delay(7000).fadeIn();
-      });
       $section = this.el.find('.play ul');
       _ref1 = ['wheel.jpg'];
+      _results = [];
       for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
         im = _ref1[_j];
-        $section.append(Sidebar.imageEl('/images', im));
+        _results.push($section.append(Sidebar.imageEl('/images', im)));
       }
-    }
-
-    Sidebar.imageEl = function(path, im) {
-      var name;
-      name = im.split('.')[0];
-      return "<li>\n	<img src='" + path + "/" + im + "' alt='" + name + "' />\n	<span class=\"label\">" + name + "</span>\n</li>";
+      return _results;
     };
 
     return Sidebar;
