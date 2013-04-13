@@ -1,21 +1,26 @@
-imageEl = (path, im) -> "<li><img src='#{path}/#{im}' alt='#{im.split('.')[0]}' /></li>"
-
 class Sidebar
 	constructor: () ->
-		@$el = $(".side")
-		$accordion = @$el.find '.accordion'
-
-		$section = $accordion.find '.foods ul'
+		@el = $(".side")
+		$section = @el.find '.foods ul'
 		for im in ['carrots.png','greens.png','pear.png','pepper.png']
-			$section.append imageEl('/images/foods', im)
+			$section.append Sidebar.imageEl('/images/foods', im)
 
-		$accordion.find(".foods img").click ->
+		@el.hammer().on 'touch', '.foods li', ->
 			pig?.say "Yummy! Thank you!"
 			$(this).fadeOut('slow').delay(7000).fadeIn()
 
-		$section = $accordion.find '.play ul'
+		$section = @el.find '.play ul'
 		for im in ['wheel.jpg']
-			$section.append imageEl('/images', im)
+			$section.append Sidebar.imageEl('/images', im)
+
+	@imageEl: (path, im) ->
+		name = im.split('.')[0]
+		"""
+		<li>
+			<img src='#{path}/#{im}' alt='#{name}' />
+			<span class="label">#{name}</span>
+		</li>
+		"""
 
 class Sounds
 	@text: (str) ->
@@ -26,7 +31,7 @@ class Sounds
 class Guinea
 	constructor: ->
 		@tasks = []
-		$('.main').click =>
+		$('.main').on 'touchend', =>
 			if @tasks.length is 0
 				Sounds.text("Do you want to play?").play()
 			else
@@ -53,22 +58,4 @@ side = new Sidebar
 pig = new Guinea
 pig.addSound "Hello! I am a guinea pig."
 pig.addSound "Could you feed me, please?"
-
-
-# setTimeout((->
-#   Sounds.text("Hello! I am a guinea pig").play()
-
-#   $(".side .foods img").click ->
-#     Sounds.text("Yummy! Thank you!").play()
-#     $(this).unbind 'click'
-#     $(this).fadeOut('slow')
-
-#     setTimeout((->
-			
-# 		), 1500)    	
-
-# ), 1000)
-
-
-
-$('.main').backstretch('/images/guinea.jpg')
+pig.addSound "I need some exercise. Play time!"

@@ -19,7 +19,7 @@
     <div class="small-1 columns side">
       <div class="section-container accordion" data-section data-options="deep_linking: false">
         <section class="section foods">
-          <p class="title"><a href="#">Food</a></p>
+          <h5 class="title"><a href="#">Food</a></h5>
           <div class="content">
             <ul class="side-nav">
               
@@ -27,7 +27,7 @@
           </div>
         </section>
         <section class="section play">
-          <p class="title"><a href="#">Play</a></p>
+          <h5 class="title"><a href="#">Play</a></h5>
           <div class="content">
             <ul class="side-nav">
             </ul>
@@ -38,12 +38,14 @@
     <div class="small-11 columns main"></div>
   </div>
 
+  <!--
   <script>
   document.write('<script src=' +
   ('__proto__' in {} ? 'javascripts/vendor/zepto' : 'javascripts/vendor/jquery') +
   '.js><\/script>')
-  </script>
+  </script>-->
   
+  <script src="javascripts/vendor/jquery.js"></script>
   <script src="javascripts/foundation/foundation.js"></script>
     <!-- <script src="javascripts/foundation/foundation.tooltips.js"></script>-->
     <!-- <script src="javascripts/foundation/foundation.forms.js"></script>-->
@@ -59,16 +61,19 @@
     <script src="javascripts/foundation/foundation.reveal.js"></script>
     <!-- <script src="javascripts/foundation/foundation.cookie.js"></script>-->
 
-  <!-- // <script src="javascripts/vendor/jquery.hammer.min.js"></script> -->
+  <script src="javascripts/vendor/jquery.hammer.min.js"></script>
 	<!-- // <script src="javascripts/vendor/backstretch.js"></script> -->
 
 	<script src="javascripts/app.js"></script>
-  <script src="javascripts/vendor/fastclick.js"></script>
+  <!-- // <script src="javascripts/vendor/fastclick.js"></script> -->
   <script>
     $(document).foundation();
-    new FastClick(document.body);
-    $(document).bind('touchmove', function(e) {
-      e.preventDefault();
+    
+    $(function() {
+      // var fc = new FastClick(document.body);
+      $(document).bind('touchmove', function(e) {
+        e.preventDefault();
+      });
     });
   </script>
 </body>
