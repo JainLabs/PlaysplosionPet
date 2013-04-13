@@ -6,10 +6,6 @@
     return "<li><img src='" + path + "/" + im + "' alt='" + (im.split('.')[0]) + "' /></li>";
   };
 
-  pig = void 0;
-
-  side = void 0;
-
   Sidebar = (function() {
 
     function Sidebar() {
@@ -23,7 +19,7 @@
         $section.append(imageEl('/images/foods', im));
       }
       $accordion.find(".foods img").click(function() {
-        if (pig != null) {
+        if (typeof pig !== "undefined" && pig !== null) {
           pig.say("Yummy! Thank you!");
         }
         return $(this).fadeOut('slow').delay(7000).fadeIn();
@@ -67,6 +63,13 @@
         }
       });
     }
+
+    Guinea.prototype.setHungerInterval = function(msec) {
+      var _this = this;
+      return setInterval((function() {
+        return _this.addSound("Could you feed me, please?");
+      }), msec);
+    };
 
     Guinea.prototype.addTask = function(fn) {
       return this.tasks.push(fn);

@@ -1,8 +1,5 @@
 imageEl = (path, im) -> "<li><img src='#{path}/#{im}' alt='#{im.split('.')[0]}' /></li>"
 
-pig = undefined
-side = undefined
-
 class Sidebar
 	constructor: () ->
 		@$el = $(".side")
@@ -34,6 +31,11 @@ class Guinea
 				Sounds.text("Do you want to play?").play()
 			else
 				@tasks.shift()()
+
+	setHungerInterval: (msec) ->
+		setInterval (=>
+			@addSound "Could you feed me, please?"
+		), msec
 
 	addTask: (fn) ->
 		@tasks.push fn
