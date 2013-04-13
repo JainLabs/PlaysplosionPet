@@ -8,8 +8,6 @@ class Sidebar
 			pig.say "Yummy! Thank you!"
 			$(this).fadeOut('slow').delay(7000).fadeIn()
 			pig.addSound "My tummy hurts! Could you rub it?"
-			$('.main').hammer().on 'rotate', ->
-				pig.say "That feels much better!"
 
 		@el.hammer().on 'swiperight doubletap', '.play li', ->
 			pig.setImage "/images/run.gif", 3000
@@ -35,19 +33,27 @@ class Sidebar
 
 
 class Sounds
-	@text: (str) ->
-		new Audio "http://tts-api.com/tts.mp3?q=#{str.replace ' ', '+'}"
-
-	@yumthankyou: new Audio "https://dl.dropboxusercontent.com/u/2724547/serve/autismhackathon/yummy.wav"
+	@text: (str) -> new Audio "http://tts-api.com/tts.mp3?q=#{str.replace ' ', '+'}"
+	@feed: new Audio "/audio/feed.wav"
+	@fun: new Audio "/audio/fun.wav"
+	@gentle: new Audio "/audio/gentle.wav"
+	@tummyfeelsbetter: new Audio "/audio/tummyfeelsbetter.wav"
+	@tumrub: new Audio "/audio/tumrub.wav"
+	@yummy: new Audio "/audio/yummy.wav"
 
 class Guinea
 	constructor: ->
 		@tasks = []
-		$('.main').on 'touchend', =>
+		@stage = $('.main').hammer()
+		@stage.on 'touchend', =>
 			if @tasks.length is 0
 				Sounds.text("Do you want to play?").play()
 			else
 				@tasks.shift()()
+		@stage.on 'pinchout', =>
+			@say "My tummy feels much better!"
+		@stage.on 'pinchout', =>
+			@say "Could you be more gentle?"
 
 
 	setImage: (url, revert) ->
@@ -77,7 +83,7 @@ class Guinea
 
 side = new Sidebar
 pig = new Guinea
-pig.setHungerInterval 15000
+pig.setHungerInterval 30000
 pig.addSound "Hello! I am a guinea pig."
 pig.addSound "I need some exercise. Can we have play time?"
 pig.addSound "Could you feed me, please?"

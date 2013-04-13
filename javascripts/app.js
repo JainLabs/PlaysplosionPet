@@ -11,10 +11,7 @@
         pig.setImage("/images/eating.gif", 3000);
         pig.say("Yummy! Thank you!");
         $(this).fadeOut('slow').delay(7000).fadeIn();
-        pig.addSound("My tummy hurts! Could you rub it?");
-        return $('.main').hammer().on('rotate', function() {
-          return pig.say("That feels much better!");
-        });
+        return pig.addSound("My tummy hurts! Could you rub it?");
       });
       this.el.hammer().on('swiperight doubletap', '.play li', function() {
         pig.setImage("/images/run.gif", 3000);
@@ -58,7 +55,17 @@
       return new Audio("http://tts-api.com/tts.mp3?q=" + (str.replace(' ', '+')));
     };
 
-    Sounds.yumthankyou = new Audio("https://dl.dropboxusercontent.com/u/2724547/serve/autismhackathon/yummy.wav");
+    Sounds.feed = new Audio("/audio/feed.wav");
+
+    Sounds.fun = new Audio("/audio/fun.wav");
+
+    Sounds.gentle = new Audio("/audio/gentle.wav");
+
+    Sounds.tummyfeelsbetter = new Audio("/audio/tummyfeelsbetter.wav");
+
+    Sounds.tumrub = new Audio("/audio/tumrub.wav");
+
+    Sounds.yummy = new Audio("/audio/yummy.wav");
 
     return Sounds;
 
@@ -69,12 +76,19 @@
     function Guinea() {
       var _this = this;
       this.tasks = [];
-      $('.main').on('touchend', function() {
+      this.stage = $('.main').hammer();
+      this.stage.on('touchend', function() {
         if (_this.tasks.length === 0) {
           return Sounds.text("Do you want to play?").play();
         } else {
           return _this.tasks.shift()();
         }
+      });
+      this.stage.on('pinchout', function() {
+        return _this.say("My tummy feels much better!");
+      });
+      this.stage.on('pinchout', function() {
+        return _this.say("Could you be more gentle?");
       });
     }
 
@@ -125,7 +139,7 @@
 
   pig = new Guinea;
 
-  pig.setHungerInterval(15000);
+  pig.setHungerInterval(30000);
 
   pig.addSound("Hello! I am a guinea pig.");
 
