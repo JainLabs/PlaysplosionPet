@@ -91,7 +91,7 @@
       this.stage.on('pinchout', function() {
         return _this.say(Sound.tummyfeelsbetter);
       });
-      this.stage.on('pinchout', function() {
+      this.stage.on('pinchin', function() {
         return _this.say(Sound.gentle);
       });
     }
@@ -138,6 +138,10 @@
     return Guinea;
 
   })();
+
+  $(['/images/eating.gif', '/images/run.gif']).each(function() {
+    return (new Image).src = this;
+  });
 
   side = new Sidebar;
 

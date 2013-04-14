@@ -9,6 +9,7 @@ class Sound
 	@tumrub: new Audio "/audio/tumrub.wav"
 	@yummy: new Audio "/audio/yummy.wav"
 
+
 class Sidebar
 	constructor: () ->
 		@el = $(".side")
@@ -53,7 +54,7 @@ class Guinea
 				@tasks.shift()()
 		@stage.on 'pinchout', =>
 			@say Sound.tummyfeelsbetter
-		@stage.on 'pinchout', =>
+		@stage.on 'pinchin', =>
 			@say Sound.gentle
 
 
@@ -81,6 +82,12 @@ class Guinea
 	say: (snd) ->
 		if not snd.play? then snd = Sound.text(snd)
 		snd.play()
+
+# Preload images
+$([
+    '/images/eating.gif',
+    '/images/run.gif'
+]).each -> (new Image).src = this
 
 side = new Sidebar
 pig = new Guinea
