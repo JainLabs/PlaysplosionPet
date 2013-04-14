@@ -81,7 +81,7 @@
       var _this = this;
       this.tasks = [];
       this.stage = $('.main').hammer();
-      this.stage.on('touchend', function() {
+      this.stage.on('tap', function() {
         if (_this.tasks.length === 0) {
           return _this.say(Sound.play);
         } else {

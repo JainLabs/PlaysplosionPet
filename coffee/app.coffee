@@ -47,7 +47,7 @@ class Guinea
 	constructor: ->
 		@tasks = []
 		@stage = $('.main').hammer()
-		@stage.on 'touchend', =>
+		@stage.on 'tap', =>
 			if @tasks.length is 0
 				@say Sound.play
 			else
