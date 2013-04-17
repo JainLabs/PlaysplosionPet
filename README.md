@@ -15,7 +15,7 @@ Acknowledgements
 - Hammer.js
 - Compass/SCSS Styles
 - jQuery
-- Heroku (deployed to playsplosion.heroku.com)
+- Heroku (deployed to playsplosion.herokuapp.com)
 
 License - AGPL v3
 -----------------
